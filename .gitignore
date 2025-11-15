@@ -26,6 +26,7 @@ out/
 *.AppImage
 
 # FFmpeg (binário externo - não versionar)
+ffmpeg/
 ffmpeg/bin/
 ffmpeg/lib/
 
