@@ -20,7 +20,7 @@ Aplicação Electron para gravação de áudio em **MP3**, com organização aut
 ## ✨ O Que Faz
 
 - ✅ **Grava em MP3** (192 kbps @ 16 kHz)
-- ✅ **Organiza por tipo** - Reuniões / Treinamentos / Tickets
+- ✅ **Organiza por pasta** - Reuniões / Treinamentos / Tickets
 - ✅ **Nomeação automática** - `tipo_YYYY-MM-DD_descrição.mp3`
 - ✅ **Modo Dual** - Microfone + áudio do sistema
 - ✅ **Executa local ou em rede** - UNC paths suportados
@@ -44,7 +44,7 @@ Aplicação Electron para gravação de áudio em **MP3**, com organização aut
 | Software | Obrigatório? | Instalação |
 |----------|-------------|------------|
 | **Node.js 18+** | ✅ SIM | [nodejs.org](https://nodejs.org/) → LTS → Marque "Add to PATH" |
-| **FFmpeg** | ✅ SIM | ✅ Já incluído no projeto |
+| **FFmpeg** | ✅ SIM | ❌ Não incluído no projeto |
 | **Windows 10/11** | ✅ SIM | — |
 | **Microfone** | ✅ SIM | USB ou integrado |
 
