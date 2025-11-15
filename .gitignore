@@ -1,0 +1,87 @@
+# ===============================================
+# GRAVADOR DE ÁUDIO - Controle de Versão
+# ===============================================
+
+# Dependências Node.js
+node_modules/
+package-lock.json
+
+# Gravações de áudio (geradas pelos usuários)
+recordings/
+*.mp3
+*.wav
+*.webm
+
+# Logs de aplicação
+logs/
+*.log
+
+# Builds e distribuíveis
+dist/
+build/
+out/
+*.exe
+*.msi
+*.dmg
+*.AppImage
+
+# FFmpeg (binário externo - não versionar)
+ffmpeg/bin/
+ffmpeg/lib/
+
+# Cache e temporários
+.cache/
+tmp/
+temp/
+*.tmp
+
+# Sistema Operacional
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDEs e Editores
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Ambiente Python (opcional)
+venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# Configurações locais específicas do usuário
+.env
+.env.local
+config.local.json
+
+# ===============================================
+# DOCUMENTAÇÃO AUXILIAR (manter apenas README.md)
+# ===============================================
+SUMARIO_EXECUTIVO.md
+ARQUITETURA_TECNICA.md
+DESENVOLVIMENTO.md
+GUIA_RAPIDO.md
+GUIA_DEPLOYMENT.md
+INDICE_DOCUMENTACAO.md
+SISTEMA_REQUIREMENTS.md
+VERIFICACAO_REDE.md
+FERRAMENTAS_EXTERNAS.md
+FINALIZACAO_DESENVOLVIMENTO.md
+CHANGELOG_DOCUMENTACAO.md
+ESTADO_ATUAL.md
+INSTALACAO.md
+
+# ===============================================
+# SCRIPTS DE INICIALIZAÇÃO ALTERNATIVOS
+# ===============================================
+# Manter apenas: iniciar.vbs (ou main.js + preload.js para dev)
+# Remover: scripts redundantes
+iniciar.bat
+iniciar.ps1
+Gravador.bat

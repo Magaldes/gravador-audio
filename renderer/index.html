@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gravador de Áudio (Entrada/Saída)</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 30px;
+      font-size: 24px;
+    }
+
+    h2 {
+      color: #555;
+      font-size: 16px;
+      margin-top: 25px;
+      margin-bottom: 12px;
+      border-bottom: 2px solid #667eea;
+      padding-bottom: 8px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      color: #555;
+      font-weight: 600;
+      margin-bottom: 5px;
+      font-size: 14px;
+    }
+
+    select {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 14px;
+      background: white;
+      cursor: pointer;
+      transition: border-color 0.3s;
+    }
+
+    select:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+
+    .indicator {
+      margin-top: 8px;
+      font-size: 12px;
+      color: #22863a;
+      font-weight: 500;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 10px;
+      margin: 20px 0;
+      flex-wrap: wrap;
+    }
+
+    button {
+      flex: 1;
+      min-width: 140px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-primary {
+      background: #667eea;
+      color: white;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: #5568d3;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-danger {
+      background: #f56565;
+      color: white;
+    }
+
+    .btn-danger:hover:not(:disabled) {
+      background: #e53e3e;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(245, 101, 101, 0.4);
+    }
+
+    .btn-success {
+      background: #48bb78;
+      color: white;
+    }
+
+    .btn-success:hover:not(:disabled) {
+      background: #38a169;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(72, 187, 120, 0.4);
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .volume-control {
+      margin: 15px 0;
+    }
+
+    .volume-control label {
+      font-size: 12px;
+      margin-bottom: 5px;
+    }
+
+    .volume-slider {
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: #ddd;
+      outline: none;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    .volume-slider::-webkit-slider-thumb {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #667eea;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .volume-slider::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #667eea;
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .volume-value {
+      font-size: 12px;
+      color: #667eea;
+      font-weight: 600;
+      text-align: right;
+    }
+
+    .status {
+      padding: 12px;
+      border-radius: 8px;
+      margin: 15px 0;
+      font-size: 14px;
+      font-weight: 500;
+      text-align: center;
+      display: none;
+    }
+
+    .status.show {
+      display: block;
+    }
+
+    .status.success {
+      background: #dcfce7;
+      color: #166534;
+      border: 1px solid #86efac;
+    }
+
+    .status.error {
+      background: #fee2e2;
+      color: #991b1b;
+      border: 1px solid #fca5a5;
+    }
+
+    .status.info {
+      background: #dbeafe;
+      color: #1e40af;
+      border: 1px solid #93c5fd;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎙️ Gravador de Áudio</h1>
+
+    <h2>Dispositivos</h2>
+    <div class="form-group">
+      <label>Entrada de Áudio (Microfone):</label>
+      <select id="micSelect"></select>
+      <div id="micIndicator" class="indicator"></div>
+    </div>
+
+    <div class="form-group">
+      <label>Saída de Áudio (Sistema/VB-Cable):</label>
+      <select id="systemSelect"></select>
+      <div id="systemIndicator" class="indicator"></div>
+      <div style="font-size: 12px; color: #666; margin-top: 5px;">
+        🔊 Para gravar áudio do sistema, selecione o VB-Cable, VoiceMeeter ou outra entrada virtual
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Modo de Gravação:</label>
+      <select id="recordMode">
+        <option value="mic-only">🎤 Gravar Apenas Entrada (Microfone)</option>
+        <option value="system-only">🔊 Gravar Apenas Saída (Sistema)</option>
+        <option value="both">🎤🔊 Gravar Entrada e Saída (2 arquivos)</option>
+      </select>
+      <div style="font-size: 12px; color: #666; margin-top: 5px;">
+        Escolha o que deseja gravar: entrada, saída ou ambas separadamente
+      </div>
+    </div>
+
+    <h2>Configuração do Arquivo</h2>
+    <div class="form-group">
+      <label>Tipo de Assunto:</label>
+      <select id="subjectType" style="width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 8px; font-size: 14px;">
+        <option value="reunioes">📋 Reuniões</option>
+        <option value="treinamentos">🎓 Treinamentos</option>
+        <option value="tickets">🎫 Tickets</option>
+      </select>
+      <div style="font-size: 12px; color: #666; margin-top: 5px;">
+        🗂️ O arquivo será salvo na pasta correspondente ao tipo selecionado
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Descrição (opcional):</label>
+      <input type="text" id="descriptionInput" placeholder="ex: apresentacao_vendas" style="width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 8px; font-size: 14px;" />
+      <div style="font-size: 12px; color: #666; margin-top: 5px;">
+        📝 Adicione uma descrição para identificar melhor o arquivo
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Preview do Nome do Arquivo:</label>
+      <div id="filenamePreview" style="padding: 10px; background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px; font-family: monospace; font-size: 14px; color: #495057;">
+        reunioes_2025-10-30_[descrição].mp3
+      </div>
+      <div style="font-size: 12px; color: #666; margin-top: 5px;">💾 Será salvo em formato MP3 (192kbps @ 16kHz)</div>
+    </div>
+
+    <div class="button-group">
+      <button id="startBtn" class="btn-primary">▶️ Iniciar Gravação</button>
+      <button id="stopBtn" class="btn-danger" disabled>⏹️ Parar</button>
+    </div>
+
+    <div id="recordStatus" class="status"></div>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

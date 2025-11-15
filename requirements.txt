@@ -1,0 +1,178 @@
+# ===============================================
+# GRAVADOR DE ÁUDIO v2.0 - Python Requirements
+# ===============================================
+# Este arquivo lista pacotes Python OPCIONAIS para:
+# - Scripts de transcrição automática
+# - Integração com serviços de ML/AI
+# - Processamento batch de arquivos
+#
+# ⚠️ IMPORTANTE:
+# Este projeto é principalmente Node.js/Electron.
+# Python é OPCIONAL e apenas necessário se você quiser
+# usar scripts auxiliares de transcrição.
+#
+# Para requisitos de sistema (Node.js, FFmpeg, etc):
+# Veja SYSTEM_REQUIREMENTS.md
+#
+# Instalação:
+#   pip install -r requirements.txt
+#
+# Data: 12 de Novembro de 2025
+# Versão: 2.0
+# ===============================================
+
+# ==============================================
+# TRANSCRIÇÃO DE ÁUDIO (Opcional)
+# ==============================================
+
+# OpenAI API - Para usar serviço de transcrição
+#openai>=1.0.0
+
+# Google Cloud Speech-to-Text
+#google-cloud-speech>=2.20.0
+
+# Azure Cognitive Services Speech SDK
+#azure-cognitiveservices-speech>=1.32.0
+
+# ==============================================
+# PROCESSAMENTO DE ÁUDIO (Opcional)
+# ==============================================
+
+# Librosa - Análise de áudio
+librosa>=0.10.0
+
+# SoundFile - Leitura/escrita de arquivos de áudio
+soundfile>=0.12.0
+
+# PyDub - Manipulação de áudio Python
+pydub>=0.25.1
+
+# ==============================================
+# UTILIDADES GERAIS
+# ==============================================
+
+# Requests - HTTP requests
+requests>=2.31.0
+
+# Python-dotenv - Gerenciamento de variáveis de ambiente
+python-dotenv>=1.0.0
+
+# ==============================================
+# ANÁLISE E PROCESSAMENTO DE DADOS (Opcional)
+# ==============================================
+
+# Pandas - Análise de dados
+pandas>=2.0.0
+
+# NumPy - Computação numérica
+numpy>=1.24.0
+
+# ==============================================
+# NOTAS DE INSTALAÇÃO
+# ==============================================
+#
+# 1. Instalar Python 3.8+:
+#    Download: https://www.python.org/downloads/
+#    Ou via Winget: winget install Python.Python.3.11
+#
+# 2. Criar ambiente virtual (recomendado):
+#    python -m venv venv
+#    venv\Scripts\activate
+#
+# 3. Instalar pacotes:
+#    pip install -r requirements.txt
+#
+# 4. Configurar APIs (se usar transcrição):
+#    - OpenAI: Obter API key em https://platform.openai.com/
+#    - Google: Configurar credenciais em https://cloud.google.com/speech-to-text/
+#    - Azure: Obter chave em https://portal.azure.com/
+#
+# ==============================================
+# EXEMPLOS DE USO
+# ==============================================
+#
+# --- OpenAI Transcrição ---
+# ```python
+# import openai
+# openai.api_key = "sua-api-key"
+# 
+# with open("recordings/reunioes/arquivo.mp3", "rb") as audio:
+#     transcript = openai.Audio.transcribe("whisper-1", audio)
+#     print(transcript["text"])
+# ```
+#
+# --- Google Cloud Speech ---
+# ```python
+# from google.cloud import speech
+# 
+# client = speech.SpeechClient()
+# with open("recordings/reunioes/arquivo.mp3", "rb") as audio:
+#     content = audio.read()
+# 
+# audio = speech.RecognitionAudio(content=content)
+# config = speech.RecognitionConfig(
+#     encoding=speech.RecognitionConfig.AudioEncoding.MP3,
+#     sample_rate_hertz=16000,
+#     language_code="pt-BR",
+# )
+# 
+# response = client.recognize(config=config, audio=audio)
+# for result in response.results:
+#     print(result.alternatives[0].transcript)
+# ```
+#
+# --- Azure Speech ---
+# ```python
+# import azure.cognitiveservices.speech as speechsdk
+# 
+# speech_config = speechsdk.SpeechConfig(
+#     subscription="SUA_KEY",
+#     region="REGIAO"
+# )
+# audio_input = speechsdk.AudioConfig(
+#     filename="recordings/reunioes/arquivo.mp3"
+# )
+# recognizer = speechsdk.SpeechRecognizer(
+#     speech_config=speech_config,
+#     audio_config=audio_input
+# )
+# result = recognizer.recognize_once()
+# print(result.text)
+# ```
+#
+# ==============================================
+# TROUBLESHOOTING
+# ==============================================
+#
+# Erro: "pip não é reconhecido"
+# Solução: Adicionar Python ao PATH ou usar:
+#   python -m pip install -r requirements.txt
+#
+# Erro: "Microsoft Visual C++ 14.0 is required"
+# Solução: Instalar Build Tools:
+#   https://visualstudio.microsoft.com/visual-cpp-build-tools/
+#
+# Erro: "Could not find a version that satisfies"
+# Solução: Atualizar pip:
+#   python -m pip install --upgrade pip
+#
+# ==============================================
+# COMPATIBILIDADE
+# ==============================================
+#
+# Python: 3.8, 3.9, 3.10, 3.11
+# Sistema: Windows 10/11, Windows Server 2016+
+# Arquitetura: x64
+#
+# ==============================================
+# LICENÇAS
+# ==============================================
+#
+# Todos os pacotes listados são open-source ou
+# possuem termos de uso gratuito para uso pessoal.
+# Verifique os termos de serviço das APIs:
+# - OpenAI: https://openai.com/policies/terms-of-use
+# - Google Cloud: https://cloud.google.com/terms
+# - Azure: https://azure.microsoft.com/support/legal/
+#
+# ==============================================

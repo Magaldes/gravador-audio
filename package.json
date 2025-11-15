@@ -1,0 +1,52 @@
+{
+  "name": "electron-audio-recorder",
+  "version": "1.0.0",
+  "description": "Gravador de áudio com entrada/saída e transcrição automática",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder",
+    "build:win": "electron-builder --win --publish never"
+  },
+  "dependencies": {
+    "@xenova/transformers": "^2.6.5"
+  },
+  "devDependencies": {
+    "electron": "31.0.0",
+    "electron-builder": "24.6.4"
+  },
+  "build": {
+    "appId": "com.audiorecorder.app",
+    "productName": "Gravador de Áudio",
+    "directories": {
+      "buildResources": "assets"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        },
+        {
+          "target": "portable",
+          "arch": ["x64"]
+        }
+      ],
+      "certificateFile": null,
+      "certificatePassword": null
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Gravador de Áudio"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "renderer/**/*",
+      "node_modules/**/*"
+    ]
+  }
+}
